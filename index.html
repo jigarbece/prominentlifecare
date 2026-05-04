@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coming Soon — ProminentLifecare</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --deep: #0d3b2e;
+    --sage: #4a8c73;
+    --cream: #f7f4ef;
+    --gold: #c9a96e;
+    --pale: #eaf4f0;
+  }
+
+  html, body {
+    height: 100%;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--deep);
+    overflow: hidden;
+  }
+
+  .bg-canvas {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  }
+  .blob {
+    position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.35;
+  }
+  .blob-1 { width: 500px; height: 500px; background: #b4dfd0; top: -150px; right: -100px; animation: drift 12s ease-in-out infinite alternate; }
+  .blob-2 { width: 400px; height: 400px; background: #e4d5b7; bottom: -100px; left: -80px; animation: drift 15s ease-in-out infinite alternate-reverse; }
+  .blob-3 { width: 300px; height: 300px; background: #cde8dc; top: 40%; left: 50%; transform: translateX(-50%); animation: drift 10s ease-in-out infinite alternate; }
+
+  @keyframes drift {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(30px, -30px) scale(1.06); }
+  }
+
+  .leaf-bg {
+    position: fixed; opacity: 0.04; pointer-events: none; z-index: 0;
+  }
+  .leaf-tl { top: -60px; left: -60px; width: 280px; }
+  .leaf-br { bottom: -60px; right: -60px; width: 280px; transform: rotate(180deg); }
+
+  .wrapper {
+    position: relative; z-index: 1;
+    height: 100svh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 2rem 1.5rem;
+  }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(74,140,115,0.25);
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--sage); font-weight: 500;
+    backdrop-filter: blur(8px);
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .badge-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--sage);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.7); }
+  }
+
+  .brand {
+    text-align: center; margin-bottom: 1.75rem;
+    animation: fadeUp 0.9s 0.1s ease both;
+  }
+  .logo-mark { display: inline-block; width: 64px; height: 64px; margin-bottom: 1rem; }
+  .wordmark {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2rem, 8vw, 3.2rem);
+    font-weight: 300; letter-spacing: 0.03em;
+    color: var(--deep); line-height: 1.1;
+  }
+  .wordmark span { color: var(--sage); font-style: italic; font-weight: 400; }
+  .tagline {
+    font-size: 12px; color: var(--sage); letter-spacing: 0.18em;
+    text-transform: uppercase; margin-top: 0.4rem; font-weight: 300;
+  }
+
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    width: 100%; max-width: 300px;
+    margin: 0 auto 2.5rem;
+    animation: fadeUp 1s 0.2s ease both;
+  }
+  .divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+
+  .countdown-wrap { animation: fadeUp 1s 0.3s ease both; width: 100%; max-width: 420px; }
+  .countdown { display: flex; gap: clamp(6px, 2vw, 14px); justify-content: center; align-items: flex-end; width: 100%; }
+  .count-block {
+    text-align: center;
+    background: rgba(255,255,255,0.75);
+    border: 1px solid rgba(74,140,115,0.18);
+    border-radius: 14px;
+    padding: clamp(12px, 3vw, 18px) clamp(10px, 3vw, 22px) clamp(10px, 2.5vw, 14px);
+    flex: 1;
+    min-width: 0;
+    max-width: 90px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 24px rgba(13,59,46,0.06);
+    transition: transform 0.2s ease;
+  }
+  .count-block:hover { transform: translateY(-2px); }
+  .count-num {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.8rem, 9vw, 2.6rem); font-weight: 600;
+    color: var(--deep); line-height: 1; display: block;
+  }
+  .count-label {
+    font-size: clamp(8px, 2vw, 10px); color: var(--sage);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-top: 6px; display: block; font-weight: 400;
+  }
+  .count-sep {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.4rem, 5vw, 2rem); color: var(--gold); opacity: 0.55;
+    padding-bottom: clamp(14px, 4vw, 20px);
+    flex-shrink: 0;
+  }
+
+  .launch-note {
+    margin-top: 1.5rem; font-size: 12px; color: #7aaa96;
+    letter-spacing: 0.1em; text-transform: uppercase; text-align: center;
+    animation: fadeUp 1s 0.45s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes flip {
+    0% { transform: rotateX(0); }
+    50% { transform: rotateX(-90deg); opacity: 0; }
+    51% { transform: rotateX(90deg); opacity: 0; }
+    100% { transform: rotateX(0); opacity: 1; }
+  }
+  .flipping { animation: flip 0.4s ease; }
+</style>
+</head>
+<body>
+
+<div class="bg-canvas">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<svg class="leaf-bg leaf-tl" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M180 20 C180 20, 20 20, 20 180 C20 180, 100 10, 180 20Z" fill="#0d3b2e"/>
+  <path d="M100 100 C100 100, 20 180, 20 180" stroke="#0d3b2e" stroke-width="3" fill="none"/>
+</svg>
+<svg class="leaf-bg leaf-br" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M180 20 C180 20, 20 20, 20 180 C20 180, 100 10, 180 20Z" fill="#0d3b2e"/>
+  <path d="M100 100 C100 100, 20 180, 20 180" stroke="#0d3b2e" stroke-width="3" fill="none"/>
+</svg>
+
+<div class="wrapper">
+
+  <div class="badge">
+    <span class="badge-dot"></span>
+    Coming Soon
+  </div>
+
+  <div class="brand">
+    <svg class="logo-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="32" cy="32" r="30" fill="#eaf4f0" stroke="#c4dfd6" stroke-width="1"/>
+      <path d="M32 46 C32 46, 14 35, 14 23 C14 16, 20 12, 26 14 C29 15, 31 17, 32 19 C33 17, 35 15, 38 14 C44 12, 50 16, 50 23 C50 35, 32 46, 32 46Z" fill="#4a8c73" opacity="0.9"/>
+      <path d="M32 46 C32 46, 44 28, 40 18" stroke="#d4ede4" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <circle cx="32" cy="32" r="3" fill="white" opacity="0.6"/>
+    </svg>
+    <div class="wordmark">Prominent<span>Lifecare</span></div>
+    <div class="tagline">Healthcare &nbsp;·&nbsp; Wellness &nbsp;·&nbsp; Compassion</div>
+  </div>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+      <path d="M8 1 C8 1, 3 4, 3 8 C3 12, 8 15, 8 15 C8 15, 13 12, 13 8 C13 4, 8 1, 8 1Z" fill="#c9a96e" opacity="0.7"/>
+    </svg>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="countdown-wrap">
+    <div class="countdown">
+      <div class="count-block">
+        <span class="count-num" id="cd-days">00</span>
+        <span class="count-label">Days</span>
+      </div>
+      <span class="count-sep">:</span>
+      <div class="count-block">
+        <span class="count-num" id="cd-hours">00</span>
+        <span class="count-label">Hours</span>
+      </div>
+      <span class="count-sep">:</span>
+      <div class="count-block">
+        <span class="count-num" id="cd-mins">00</span>
+        <span class="count-label">Mins</span>
+      </div>
+      <span class="count-sep">:</span>
+      <div class="count-block">
+        <span class="count-num" id="cd-secs">00</span>
+        <span class="count-label">Secs</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="launch-note">Launching · 10 May 2026</div>
+
+</div>
+
+<script>
+  const launch = new Date('2026-05-10T00:00:00');
+  const pad = n => String(n).padStart(2, '0');
+  const els = {
+    d: document.getElementById('cd-days'),
+    h: document.getElementById('cd-hours'),
+    m: document.getElementById('cd-mins'),
+    s: document.getElementById('cd-secs'),
+  };
+  const prev = { d: '', h: '', m: '', s: '' };
+
+  function updateFlip(el, key, val) {
+    if (val !== prev[key]) {
+      el.classList.remove('flipping');
+      void el.offsetWidth;
+      el.classList.add('flipping');
+      el.textContent = val;
+      prev[key] = val;
+    }
+  }
+
+  function tick() {
+    const diff = launch - Date.now();
+    if (diff <= 0) {
+      Object.values(els).forEach(e => e.textContent = '00');
+      return;
+    }
+    updateFlip(els.d, 'd', pad(Math.floor(diff / 86400000)));
+    updateFlip(els.h, 'h', pad(Math.floor(diff / 3600000) % 24));
+    updateFlip(els.m, 'm', pad(Math.floor(diff / 60000) % 60));
+    updateFlip(els.s, 's', pad(Math.floor(diff / 1000) % 60));
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>
