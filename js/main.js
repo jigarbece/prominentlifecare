@@ -49,9 +49,19 @@
     toggle.setAttribute('aria-expanded', String(open));
     document.body.classList.toggle('drawer-open', open);
   });
-  drawer?.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+  drawer?.querySelectorAll('a:not(.dropdown-ignore)').forEach(a => a.addEventListener('click', closeDrawer));
   // close drawer on resize to desktop
   window.addEventListener('resize', () => { if (window.innerWidth >= 960) closeDrawer(); });
+
+  /* ---------- Mobile drawer Dropdown ---------- */
+  document.querySelectorAll('.drawer-dropdown-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      btn.classList.toggle('open');
+      const content = btn.nextElementSibling;
+      if(content) content.classList.toggle('open');
+    });
+  });
 
   /* ---------- Smooth in-page scroll with sticky-nav offset ---------- */
   document.querySelectorAll('a[href^="#"]').forEach(link => {
